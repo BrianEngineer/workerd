@@ -126,6 +126,7 @@ export const inspect = {
     });
     assert.strictEqual(util.inspect(request),
 `Request {
+  cache: undefined,
   keepalive: false,
   integrity: '',
   cf: undefined,
