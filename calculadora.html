@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora Avanzada de Derivadas e Integrales</title>
+    <script src="https://cdn.jsdelivr.net/npm/pyodide@0.22.0/full/pyodide.js"></script>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        .container { max-width: 600px; margin: auto; }
+        textarea, input, button { margin-top: 10px; padding: 10px; width: 100%; }
+        textarea { height: 100px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Calculadora Avanzada de Derivadas e Integrales</h1>
+        
+        <h2>Derivada</h2>
+        <textarea id="funcDerivada" placeholder="Introduce la función para derivar"></textarea>
+        <button onclick="calcularDerivada()">Calcular Derivada</button>
+        <p>Resultado: <span id="resultadoDerivada"></span></p>
+
+        <h2>Integral</h2>
+        <textarea id="funcIntegral" placeholder="Introduce la función para integrar"></textarea>
+        <button onclick="calcularIntegral()">Calcular Integral</button>
+        <p>Resultado: <span id="resultadoIntegral"></span></p>
+    </div>
+
+    <script>
+        let pyodideReadyPromise = loadPyodide();
+
+        async function runPython(code) {
+            let pyodide = await pyodideReadyPromise;
+            return await pyodide.runPythonAsync(code);
+        }
+
+        async function calcularDerivada() {
+            const func = document.getElementById('funcDerivada').value;
+            const pythonCode = `
